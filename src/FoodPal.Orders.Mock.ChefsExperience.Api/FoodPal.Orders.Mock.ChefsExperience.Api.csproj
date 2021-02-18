@@ -7,11 +7,11 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<DocumentationFile>.\Mock.ChefsExperience.Api.xml</DocumentationFile>
+		<DocumentationFile>.\FoodPal.Orders.Mock.ChefsExperience.Api.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-		<DocumentationFile>.\Mock.ChefsExperience.Api.xml</DocumentationFile>
+		<DocumentationFile>.\FoodPal.Orders.Mock.ChefsExperience.Api.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
