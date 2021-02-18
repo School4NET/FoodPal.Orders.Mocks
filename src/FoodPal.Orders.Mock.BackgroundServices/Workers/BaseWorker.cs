@@ -10,12 +10,10 @@ namespace FoodPal.Orders.Mock.BackgroundServices.Workers
 	public abstract class BaseWorker
 	{
 		protected readonly IMessageBroker MessageBroker;
-		protected readonly IQueueNameProvider QueueNameProvider;
 
-		public BaseWorker(IMessageBroker messageBroker, IQueueNameProvider queueNameProvider)
+		public BaseWorker(IMessageBroker messageBroker)
 		{
 			MessageBroker = messageBroker;
-			QueueNameProvider = queueNameProvider;
 		}
 
 		protected async Task ProcessMessageAsync(string messageEnvelopeAsString, string providerName, int secondsRequiredForProcessing)
@@ -25,7 +23,7 @@ namespace FoodPal.Orders.Mock.BackgroundServices.Workers
 				var payload = JsonConvert.DeserializeObject<MessageEnvelope<MessageBrokerOrderRequestDto>>(messageEnvelopeAsString);
 
 				await Task.Delay(TimeSpan.FromSeconds(secondsRequiredForProcessing));
-				await MessageBroker.SendMessageAsync(QueueNameProvider.GetProviderResponseQueueName(providerName),
+				await MessageBroker.SendMessageAsync($"provider-{providerName}-response",
 					new MessageEnvelope<MessageBrokerOrderResponseDto>("order-completed", new MessageBrokerOrderResponseDto
 					{
 						OrderId = payload.Data.OrderId,

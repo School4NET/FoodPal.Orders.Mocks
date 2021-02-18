@@ -23,11 +23,6 @@ namespace FoodPal.Orders.Mock.BackgroundServices
 						return new ServiceBusMessageBroker(messageBrokerEndpointKfc);
 					});
 
-					services.AddSingleton<IQueueNameProvider, QueueNameProvider>(sp =>
-					{
-						return new QueueNameProvider("brotaru");
-					});
-
 					services.AddHostedService<KfcWorker>();
 					services.AddHostedService<XyzWorker>();
 				});

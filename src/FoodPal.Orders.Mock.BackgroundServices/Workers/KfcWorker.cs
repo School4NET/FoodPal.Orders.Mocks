@@ -13,7 +13,7 @@ namespace FoodPal.Orders.Mock.BackgroundServices.Workers
 
 		private readonly ILogger<KfcWorker> _logger;
 
-		public KfcWorker(ILogger<KfcWorker> logger, IMessageBroker messageBroker, IQueueNameProvider queueNameProvider) : base(messageBroker, queueNameProvider)
+		public KfcWorker(ILogger<KfcWorker> logger, IMessageBroker messageBroker) : base(messageBroker)
 		{
 			_logger = logger;
 		}
@@ -21,7 +21,7 @@ namespace FoodPal.Orders.Mock.BackgroundServices.Workers
 		public async Task StartAsync(CancellationToken cancellationToken)
 		{
 			_logger.LogInformation($"{this.GetType().Name} starting; registering message handler.");
-			MessageBroker.RegisterMessageReceiver(QueueNameProvider.GetProviderRequestQueueName(ProviderName), ProcessMessageAsync);
+			MessageBroker.RegisterMessageReceiver($"provider-{ProviderName}-request", ProcessMessageAsync);
 			await MessageBroker.StartListenerAsync();
 		}
 
